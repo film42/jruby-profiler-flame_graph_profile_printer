@@ -9,7 +9,7 @@ This is a Jruby Profiler Printer that will dump a profile into a form for usage 
 ## Example
 
 ```ruby
-require require "jruby/profiler/flame_graph_profile_printer"
+require "jruby/profiler/flame_graph_profile_printer"
 
 def ok
   3 ** 3
