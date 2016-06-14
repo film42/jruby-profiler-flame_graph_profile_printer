@@ -42,6 +42,9 @@ jruby --profile.api powers.rb | ./FlameGraph/flamegraph.pl > output.svg
 Where `./FlameGraph/flamegraph.pl` is a cloned version of [FlameGraph](https://github.com/brendangregg/FlameGraph).
 
 
+![screenshot](./screenshot.png)
+
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/film42/jruby-profiler-flame_graph_profile_printer. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
