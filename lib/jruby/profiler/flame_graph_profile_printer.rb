@@ -1,6 +1,8 @@
 require "jruby/profiler"
 require "set"
 
+# HACK: This hack is here so we can read the set of invocations from
+# the InvocationSet class. We need this to follow the stack trace.
 class ::Java::OrgJrubyRuntimeProfileBuiltin::InvocationSet
   def get_invocations
     field = ::Java::OrgJrubyRuntimeProfileBuiltin::InvocationSet.java_class.declared_field(:invocations)
@@ -35,11 +37,11 @@ module JRuby
         return if self.isThisProfilerInvocation(serial)
 
         method_data = @methods.get(serial)
+        num_calls = method_data.totalCalls
+        duration = method_data.totalTime / 1000000.0
 
         method_name =  self.methodName(serial)
-        num_calls = method_data.totalCalls
         name = "#{method_name} (#{num_calls})"
-        duration = method_data.totalTime / 1000000.0
 
         current = prefix + [name]
         out.puts("#{current.join(";")} #{duration}")
