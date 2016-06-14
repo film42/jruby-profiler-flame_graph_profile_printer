@@ -1,8 +1,8 @@
 # JRuby::Profiler::FlameGraphProfilePrinter
 
 This is a JRuby Profiler Printer that will dump a profile into a form for usage with FlameGraph.
-It only builds a FlameGraph of the thread that wraps the profiler, because I'm not sure the JRuby
-profiler will let you do that.
+It only builds a FlameGraph from the thread that wraps the profiler, because I'm not sure the JRuby
+profiler supports multiple threads right now.
 
 ## Installation
 
