@@ -1,5 +1,4 @@
 require "jruby/profiler"
-require "set"
 
 # HACK: This hack is here so we can read the set of invocations from
 # the InvocationSet class. We need this to follow the stack trace.
