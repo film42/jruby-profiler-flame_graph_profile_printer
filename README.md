@@ -41,8 +41,11 @@ jruby --profile.api powers.rb | ./FlameGraph/flamegraph.pl > output.svg
 
 Where `./FlameGraph/flamegraph.pl` is a cloned version of [FlameGraph](https://github.com/brendangregg/FlameGraph).
 
+![screenshot](./example1.png)
 
-![screenshot](./screenshot.png)
+**Here's a slightly more complex example:**
+
+![screenshot](./example2.png)
 
 
 ## Contributing
