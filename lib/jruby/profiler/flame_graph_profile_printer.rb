@@ -22,12 +22,9 @@ module JRuby
 
       def printProfile(out, is_first=false)
         top_invocation = getTopInvocation
-        # top_serial_number = ti.getMethodSerialNumber
+        @methods = self.class.methodData(top_invocation)
         thread_name = getThreadName()
         prefix = ["Thread:#{thread_name}"]
-
-        @methods = self.class.methodData(top_invocation);
-
         print_invocation_stack(out, prefix, top_invocation)
       end
 
@@ -48,12 +45,10 @@ module JRuby
         out.puts("#{current.join(";")} #{duration}")
 
         invocation.children.entrySet.each do |entry|
-          serial = entry.key
           child_invocation = entry.value
 
           print_invocation_stack(out, current, child_invocation)
         end
-
       end
     end
   end
