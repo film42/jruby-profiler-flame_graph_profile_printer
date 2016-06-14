@@ -1,47 +1,45 @@
 require "jruby/profiler"
+require "set"
+
+class ::Java::OrgJrubyRuntimeProfileBuiltin::InvocationSet
+  def get_invocations
+    field = ::Java::OrgJrubyRuntimeProfileBuiltin::InvocationSet.java_class.declared_field(:invocations)
+    field.accessible = true
+    field.value(self)
+  end
+end
 
 module JRuby
   module Profiler
     class FlameGraphProfilePrinter < ::Java::OrgJrubyRuntimeProfileBuiltin::ProfilePrinter
       VERSION = "0.1.0"
 
-      # @param [IO] out
       def printHeader(out)
       end
 
-      # @param [IO] out
       def printFooter(out)
       end
 
-      # @param [IO] out Where we want to write our output
-      # @param [Boolean] is_first (false) Does nothing, at the moment
       def printProfile(out, is_first=false)
-        ti = getTopInvocation
-        top_serial_number = ti.getMethodSerialNumber
+        top_invocation = getTopInvocation
+        # top_serial_number = ti.getMethodSerialNumber
         thread_name = getThreadName()
         prefix = ["Thread:#{thread_name}"]
 
-        methods = self.class.methodData(ti);
-        methods.entrySet.each do |entry|
-          serial = entry.key
-          method_data = entry.value
+        @methods = self.class.methodData(top_invocation);
 
-          # Only print the stack of "root" methods. People called by
-          # the top most invocation.
-          if method_data.parents.to_a == [top_serial_number]
-            print_stack(out, prefix, methods, serial)
-          end
-        end
+        print_invocation_stack(out, prefix, top_invocation)
       end
 
     private
 
-      def print_stack(out, prefix, methods, serial)
+      def print_invocation_stack(out, prefix, invocation)
+        serial = invocation.getMethodSerialNumber
         return if self.isThisProfilerInvocation(serial)
 
-        method_data = methods.get(serial)
-        method_name =  self.methodName(serial)
+        method_data = @methods.get(serial)
 
+        method_name =  self.methodName(serial)
         num_calls = method_data.totalCalls
         name = "#{method_name} (#{num_calls})"
         duration = method_data.totalTime / 1000000.0
@@ -49,9 +47,13 @@ module JRuby
         current = prefix + [name]
         out.puts("#{current.join(";")} #{duration}")
 
-        method_data.children.to_a.each do |child_serial|
-          print_stack(out, current, methods, child_serial)
+        invocation.children.entrySet.each do |entry|
+          serial = entry.key
+          child_invocation = entry.value
+
+          print_invocation_stack(out, current, child_invocation)
         end
+
       end
     end
   end

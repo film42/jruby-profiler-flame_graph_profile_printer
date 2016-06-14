@@ -1,4 +1,4 @@
-require require "jruby/profiler/flame_graph_profile_printer"
+require "jruby/profiler/flame_graph_profile_printer"
 
 def ok
   3 ** 3
