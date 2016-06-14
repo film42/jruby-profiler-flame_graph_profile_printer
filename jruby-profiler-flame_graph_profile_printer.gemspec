@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'jruby/profiler/flame_graph_profile_printer/version'
+require 'jruby/profiler/flame_graph_profile_printer'
 
 Gem::Specification.new do |spec|
   spec.name          = "jruby-profiler-flame_graph_profile_printer"
-  spec.version       = Jruby::Profiler::FlameGraphProfilePrinter::VERSION
+  spec.version       = JRuby::Profiler::FlameGraphProfilePrinter::VERSION
   spec.authors       = ["Garrett Thornburg"]
   spec.email         = ["film42@gmail.com"]
 
-  spec.summary       = "FlameGraph profiler for Jruby"
-  spec.description   = "FlameGraph profiler for Jruby"
+  spec.summary       = "FlameGraph profiler for JRuby"
+  spec.description   = "FlameGraph profiler for JRuby"
   spec.homepage      = "https://github.com/film42/jruby-profiler-flame_graph_profile_printer"
   spec.license       = "MIT"
 
@@ -31,5 +31,4 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
 end

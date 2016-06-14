@@ -1,9 +1,10 @@
 require "jruby/profiler"
-require "jruby/profiler/flame_graph_profile_printer/version"
 
-module Jruby
+module JRuby
   module Profiler
-    class FlameGraphProfilePrinter < org.jruby.runtime.profile.builtin.ProfilePrinter
+    class FlameGraphProfilePrinter < ::Java::OrgJrubyRuntimeProfileBuiltin::ProfilePrinter
+      VERSION = "0.1.0"
+
       # @param [IO] out
       def printHeader(out)
       end
