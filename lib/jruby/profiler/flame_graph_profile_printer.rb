@@ -36,11 +36,13 @@ module JRuby
         return if self.isThisProfilerInvocation(serial)
 
         method_data = @methods.get(serial)
-        num_calls = method_data.totalCalls
-        duration = method_data.totalTime / 1000000.0
+        total_calls = method_data.totalCalls
+
+        path_calls = invocation.getCount
+        duration = invocation.getDuration / 1_000_000.0
 
         method_name =  self.methodName(serial)
-        name = "#{method_name} (#{num_calls})"
+        name = "#{method_name} (#{path_calls}/#{total_calls})"
 
         current = prefix + [name]
         out.puts("#{current.join(";")} #{duration}")
