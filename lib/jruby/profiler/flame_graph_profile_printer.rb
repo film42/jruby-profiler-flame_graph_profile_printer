@@ -13,7 +13,7 @@ end
 module JRuby
   module Profiler
     class FlameGraphProfilePrinter < ::Java::OrgJrubyRuntimeProfileBuiltin::ProfilePrinter
-      VERSION = "0.1.0"
+      VERSION = "0.2.0"
 
       def printHeader(out)
       end
